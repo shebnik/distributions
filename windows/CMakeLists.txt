@@ -1,7 +1,3 @@
-# The Flutter tooling requires that developers have a version of Visual Studio
-# installed that includes CMake 3.14 or later. You should not increase this
-# version, as doing so will cause the plugin to fail to compile for some
-# customers of the plugin.
 cmake_minimum_required(VERSION 3.14)
 
 # Project-level configuration.
@@ -47,6 +43,12 @@ target_compile_definitions(${PLUGIN_NAME} PRIVATE FLUTTER_PLUGIN_IMPL)
 target_include_directories(${PLUGIN_NAME} INTERFACE
   "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_link_libraries(${PLUGIN_NAME} PRIVATE flutter flutter_wrapper_plugin)
+
+# Boost library integration
+set(BOOST_ROOT "D:/src/boost_1_85_0")
+find_package(Boost REQUIRED)
+target_include_directories(${PLUGIN_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
+target_link_libraries(${PLUGIN_NAME} PRIVATE ${Boost_LIBRARIES})
 
 # List of absolute paths to libraries that should be bundled with the plugin.
 # This list could contain prebuilt libraries, or libraries created by an

@@ -12,6 +12,9 @@
 
 #include <memory>
 #include <sstream>
+#include <boost/math/distributions/fisher_f.hpp>
+#include <boost/math/distributions/students_t.hpp>
+
 
 namespace distributions
 {
@@ -40,6 +43,26 @@ namespace distributions
 
   DistributionsPlugin::~DistributionsPlugin() {}
 
+  double calculate_fisher_f(double alpha, int d1, int d2) {
+    // Define the Fisher's F distribution
+    boost::math::fisher_f_distribution<double> f_dist(d1, d2);
+
+    // Calculate the critical value
+    double critical_value = boost::math::quantile(boost::math::complement(f_dist, alpha));
+
+    return critical_value;
+  }
+
+  double calculate_inverse_t(double alpha, int df) {
+    // Define the Student's t distribution with the specified degrees of freedom
+    boost::math::students_t_distribution<double> t_dist(df);
+
+    // Calculate the critical value (inverse t)
+    double critical_value = boost::math::quantile(boost::math::complement(t_dist, alpha / 2));
+
+    return critical_value;
+}
+
   void DistributionsPlugin::HandleMethodCall(
       const flutter::MethodCall<flutter::EncodableValue> &method_call,
       std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result)
@@ -62,9 +85,20 @@ namespace distributions
       }
       result->Success(flutter::EncodableValue(version_stream.str()));
     }
-    if (method_call.method_name().compare("inv") == 0)
+    else if (method_call.method_name().compare("inv") == 0)
     {
-      result->Success(flutter::EncodableValue(42.0));
+      const auto *arguments = std::get_if<flutter::EncodableMap>(method_call.arguments());
+      const double alpha = std::get<double>(arguments->at(flutter::EncodableValue("alpha")));
+      const int df1 = std::get<int>(arguments->at(flutter::EncodableValue("df1")));
+      const int df2 = std::get<int>(arguments->at(flutter::EncodableValue("df2")));
+      double fisher_f = calculate_fisher_f(alpha, df1, df2);
+      result->Success(flutter::EncodableValue(fisher_f));
+    } else if (method_call.method_name().compare("student") == 0) {
+      const auto *arguments = std::get_if<flutter::EncodableMap>(method_call.arguments());
+      const double alpha = std::get<double>(arguments->at(flutter::EncodableValue("alpha")));
+      const int df = std::get<int>(arguments->at(flutter::EncodableValue("df")));
+      double t_critical = calculate_inverse_t(alpha, df);
+      result->Success(flutter::EncodableValue(t_critical));
     }
     else
     {

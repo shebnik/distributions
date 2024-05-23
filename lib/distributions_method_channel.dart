@@ -30,4 +30,18 @@ class MethodChannelDistributions extends DistributionsPlatform {
       },
     );
   }
+
+  @override
+  Future<double?> student({
+    required double alpha,
+    required int df,
+  }) async {
+    return await methodChannel.invokeMethod<double>(
+      'student',
+      <String, dynamic>{
+        'alpha': alpha,
+        'df': df,
+      },
+    );
+  }
 }

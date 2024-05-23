@@ -34,4 +34,11 @@ abstract class DistributionsPlatform extends PlatformInterface {
   }) {
     throw UnimplementedError('inv() has not been implemented.');
   }
+
+  Future<double?> student({
+    required double alpha,
+    required int df,
+  }) {
+    throw UnimplementedError('student() has not been implemented.');
+  }
 }

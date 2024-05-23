@@ -1,4 +1,3 @@
-
 import 'distributions_platform_interface.dart';
 
 class Distributions {
@@ -12,5 +11,12 @@ class Distributions {
     required int df2,
   }) async {
     return DistributionsPlatform.instance.inv(alpha: alpha, df1: df1, df2: df2);
+  }
+
+  static Future<double?> student({
+    required double alpha,
+    required int df,
+  }) {
+    return DistributionsPlatform.instance.student(alpha: alpha, df: df);
   }
 }
