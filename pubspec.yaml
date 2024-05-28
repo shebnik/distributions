@@ -1,5 +1,5 @@
 name: distributions
-description: "Fisher F-distribution."
+description: "Fisher F-distribution. Student's t distribution"
 version: 0.0.1
 # homepage:
 

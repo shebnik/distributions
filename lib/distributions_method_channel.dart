@@ -10,12 +10,6 @@ class MethodChannelDistributions extends DistributionsPlatform {
   final methodChannel = const MethodChannel('distributions');
 
   @override
-  Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
-    return version;
-  }
-
-  @override
   Future<double?> inv({
     required double alpha,
     required int df1,

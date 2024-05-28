@@ -46,9 +46,17 @@ target_link_libraries(${PLUGIN_NAME} PRIVATE flutter flutter_wrapper_plugin)
 
 # Boost library integration
 set(BOOST_ROOT "D:/src/boost_1_85_0")
+set(BOOST_INCLUDEDIR "${BOOST_ROOT}/include")
+set(BOOST_LIBRARYDIR "${BOOST_ROOT}/lib")
+
 find_package(Boost REQUIRED)
-target_include_directories(${PLUGIN_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
-target_link_libraries(${PLUGIN_NAME} PRIVATE ${Boost_LIBRARIES})
+
+if (Boost_FOUND)
+  target_include_directories(${PLUGIN_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
+  target_link_libraries(${PLUGIN_NAME} PRIVATE ${Boost_LIBRARIES})
+else ()
+  message(FATAL_ERROR "Could not find Boost libraries")
+endif()
 
 # List of absolute paths to libraries that should be bundled with the plugin.
 # This list could contain prebuilt libraries, or libraries created by an

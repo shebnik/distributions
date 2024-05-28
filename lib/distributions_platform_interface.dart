@@ -23,10 +23,6 @@ abstract class DistributionsPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
-  }
-
   Future<double?> inv({
     required double alpha,
     required int df1,
