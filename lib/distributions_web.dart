@@ -2,9 +2,7 @@
 // of your plugin as a separate package, instead of inlining it in the same
 // package as the core of your plugin.
 // ignore: avoid_web_libraries_in_flutter
-import 'dart:js' as js;
-import 'dart:html' as html;
-
+import 'package:distributions/internal/jstat.dart' as jstat;
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 import 'distributions_platform_interface.dart';
@@ -16,10 +14,6 @@ class DistributionsWeb extends DistributionsPlatform {
 
   static void registerWith(Registrar registrar) {
     DistributionsPlatform.instance = DistributionsWeb();
-    html.document.body!.append(html.ScriptElement()
-      ..src = 'https://cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js'
-      ..type = 'application/javascript'
-      ..defer = true);
   }
 
   @override
@@ -29,9 +23,9 @@ class DistributionsWeb extends DistributionsPlatform {
     required int df2,
   }) async {
     try {
-      // evaulate javascript function jStat.centralF.inv(1 - alpha, d1, d2)
+      return jstat.centralFInv(1 - alpha, df1, df2);
     } catch (e) {
-      print(e);
+      return null;
     }
   }
 
@@ -41,9 +35,9 @@ class DistributionsWeb extends DistributionsPlatform {
     required int df,
   }) async {
     try {
-      // evaulate js function jStat.studentt.inv(1 - alpha / 2, df)
+      return jstat.studenttInv(1 - alpha / 2, df);
     } catch (e) {
-      print(e);
+      return null;
     }
   }
 }
