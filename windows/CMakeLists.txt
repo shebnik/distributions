@@ -8,6 +8,9 @@ project(${PROJECT_NAME} LANGUAGES CXX)
 # versions of CMake.
 cmake_policy(VERSION 3.14...3.25)
 
+# Set CMP0144 to NEW to address the warning
+cmake_policy(SET CMP0144 NEW)
+
 # This value is used when generating builds using this plugin, so it must
 # not be changed
 set(PLUGIN_NAME "distributions_plugin")
@@ -45,9 +48,9 @@ target_include_directories(${PLUGIN_NAME} INTERFACE
 target_link_libraries(${PLUGIN_NAME} PRIVATE flutter flutter_wrapper_plugin)
 
 # Boost library integration
-set(BOOST_ROOT "D:/src/boost_1_85_0")
-set(BOOST_INCLUDEDIR "${BOOST_ROOT}/include")
-set(BOOST_LIBRARYDIR "${BOOST_ROOT}/lib")
+set(BOOST_ROOT "C:/src/boost_1_86_0")
+set(Boost_NO_SYSTEM_PATHS ON)
+set(Boost_USE_STATIC_LIBS ON)
 
 find_package(Boost REQUIRED)
 

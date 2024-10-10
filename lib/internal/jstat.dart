@@ -1,6 +1,3 @@
-@JS()
-library jstat.js;
-
 import 'package:js/js.dart';
 
 @JS('jStat.centralF.inv')

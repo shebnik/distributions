@@ -1,3 +1,6 @@
+## 0.0.2
+* Suppress boost include warning on Windows.
+
 ## 0.0.1
 
-* TODO: Describe initial release.
+* Initial release.
