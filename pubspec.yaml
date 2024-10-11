@@ -1,6 +1,6 @@
 name: distributions
 description: "Fisher F-distribution. Student's t distribution"
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/shebnik/distributions
 
 environment:

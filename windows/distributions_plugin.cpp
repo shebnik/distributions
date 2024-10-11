@@ -59,7 +59,7 @@ namespace distributions
     boost::math::students_t_distribution<double> t_dist(df);
 
     // Calculate the critical value (inverse t)
-    double critical_value = boost::math::quantile(boost::math::complement(t_dist, alpha / 2));
+    double critical_value = boost::math::quantile(boost::math::complement(t_dist, alpha));
 
     return critical_value;
   }
